@@ -1,0 +1,7 @@
+menuconfig LIBWIREGUARD
+	bool "Wireguard port for Unikraft"
+	default n
+
+config LIBWIREGUARD_MAIN_FUNCTION
+	bool "Provide main function"
+	default n
