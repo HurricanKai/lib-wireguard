@@ -32,20 +32,6 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-include(FetchContent)
-
-FetchContent_Declare(
-    Corrosion
-    GIT_REPOSITORY https://github.com/corrosion-rs/corrosion.git
-    GIT_TAG v0.5.0
-)
-FetchContent_MakeAvailable(Corrosion)
-
-corrosion_import_crate(
-    MANIFEST_PATH rust/Cargo.toml
-    LOCKED
-)
-
 ################################################################################
 # Library registration
 ################################################################################
@@ -53,11 +39,18 @@ $(eval $(call addlib_s,libwireguard,$(CONFIG_LIBWIREGUARD)))
 
 ################################################################################
 # Sources
-################################################################################]
-LIBWIREGUARD_URL = https://github.com/HurricanKai/lib-wireguard.git
-LIBWIREGUARD_SUBDIR = wireguard-$(LIBWIREGUARD_VERSION)
+################################################################################
+#LIBWIREGUARD_URL = https://github.com/HurricanKai/lib-wireguard.git
+#LIBWIREGUARD_SUBDIR = wireguard-$(LIBWIREGUARD_VERSION)
 
-$(eval $(call fetch,libwireguard,$(LIBWIREGUARD_URL)))
+$(eval $(call fetch,corrosion,https://github.com/corrosion-rs/corrosion.git))
+
+add_subdirectory(corrosion)
+
+corrosion_import_crate(
+    MANIFEST_PATH rust/Cargo.toml
+    LOCKED
+)
 
 ################################################################################
 # Helpers
@@ -95,5 +88,3 @@ LIBWIREGUARDSRCS-$(CONFIG_LIBWIREGUARD_MAIN_FUNCTION) += $(LIBWIREGUARD_BASE)/ma
 # Library sources
 ################################################################################
 # LIBWIREGUARD_SRCS-y += # Include source files here
-
-
