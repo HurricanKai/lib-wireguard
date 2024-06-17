@@ -43,9 +43,16 @@ $(eval $(call addlib_s,libwireguard,$(CONFIG_LIBWIREGUARD)))
 #LIBWIREGUARD_URL = https://github.com/HurricanKai/lib-wireguard.git
 #LIBWIREGUARD_SUBDIR = wireguard-$(LIBWIREGUARD_VERSION)
 
-$(eval $(call fetch,corrosion,https://github.com/corrosion-rs/corrosion/archive/refs/tags/v0.5.zip))
+#$(eval $(call fetch,libwireguard,https://github.com/corrosion-rs/corrosion.git))
+include(FetchContent)
 
-add_subdirectory(corrosion)
+FetchContent_Declare(
+    Corrosion
+    GIT_REPOSITORY https://github.com/corrosion-rs/corrosion.git
+    GIT_TAG v0.5
+)
+
+FetchContent_MakeAvailable(Corrosion)
 
 corrosion_import_crate(
     MANIFEST_PATH rust/Cargo.toml
@@ -88,3 +95,5 @@ LIBWIREGUARDSRCS-$(CONFIG_LIBWIREGUARD_MAIN_FUNCTION) += $(LIBWIREGUARD_BASE)/ma
 # Library sources
 ################################################################################
 # LIBWIREGUARD_SRCS-y += # Include source files here
+
+
