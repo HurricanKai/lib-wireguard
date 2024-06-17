@@ -43,7 +43,7 @@ $(eval $(call addlib_s,libwireguard,$(CONFIG_LIBWIREGUARD)))
 #LIBWIREGUARD_URL = https://github.com/HurricanKai/lib-wireguard.git
 #LIBWIREGUARD_SUBDIR = wireguard-$(LIBWIREGUARD_VERSION)
 
-$(eval $(call fetch,corrosion,https://github.com/corrosion-rs/corrosion.git))
+$(eval $(call fetch,corrosion,https://github.com/corrosion-rs/corrosion/archive/refs/tags/v0.5.zip))
 
 add_subdirectory(corrosion)
 
