@@ -42,27 +42,23 @@ $(eval $(call addlib_s,libwireguard,$(CONFIG_LIBWIREGUARD)))
 ################################################################################
 #LIBWIREGUARD_URL = https://github.com/HurricanKai/lib-wireguard.git
 #LIBWIREGUARD_SUBDIR = wireguard-$(LIBWIREGUARD_VERSION)
+CORROSION_VERSION = v0.5
+CORROSION_URL = https://github.com/corrosion-rs/corrosion/archive/refs/tags/$(CORROSION_VERSION).zip
+CORROSION_SUBDIR = corrosion-$(CORROSION_VERSION)
 
-#$(eval $(call fetch,libwireguard,https://github.com/corrosion-rs/corrosion.git))
-include(FetchContent)
+$(eval $(call fetch,corrosion,$CORROSION_URL))
 
-FetchContent_Declare(
-    Corrosion
-    GIT_REPOSITORY https://github.com/corrosion-rs/corrosion.git
-    GIT_TAG v0.5
-)
+################################################################################
+# Helpers
+################################################################################
+CORROSION_SRC = $(CORROSION_ORIGIN)/$(CORROSION_SUBDIR)
 
-FetchContent_MakeAvailable(Corrosion)
+add_subdirectory($(CORROSION_SRC))
 
 corrosion_import_crate(
     MANIFEST_PATH rust/Cargo.toml
     LOCKED
 )
-
-################################################################################
-# Helpers
-################################################################################
-LIBWIREGUARD_SRC = $(LIBWIREGUARD_ORIGIN)/$(LIBWIREGUARD_SUBDIR)
 
 ################################################################################
 # Library includes
