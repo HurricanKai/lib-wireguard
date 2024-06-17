@@ -32,8 +32,25 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
+struct uk_alloc;
+
+extern int start_wg(
+	struct uk_alloc *alloc,
+	unsigned int peer_device_id,
+	unsigned int internal_device_id,
+	unsigned char *static_private,
+	unsigned char *peer_static_public);
+extern struct uk_alloc *uk_alloc_get_default(void);
+
+const char private_key[] = "sG/awslxCv6Vk9iKT3xbqBp70XnxHvLAKu1u39DiZXA=";
+const char peer_key[] = "MF8f0PsNeUZE3sMbCdrl+cH5LLomuljUhTRa8Ktltmk=";
+
 int main(int argc, char *argv[])
 {
-	// TODO: Replace with main
-	return wireguard_main(argc, argv);
+	return start_wg(
+		uk_alloc_get_default(),
+		0,
+		1,
+		private_key,
+		peer_key);
 }
